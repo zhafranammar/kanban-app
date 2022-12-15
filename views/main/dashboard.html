@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {{template "general/header"}}
+  </head>
+  <body>
+    <div
+      class="flex flex-col w-screen h-screen overflow-auto text-black font-bold bg-gradient-to-r from-sky-500 to-indigo-500"
+    >
+      <div
+        class="flex items-center flex-shrink-0 w-full h-16 px-10 bg-white bg-opacity-75"
+      >
+        <svg
+          class="w-8 h-8 text-indigo-600 stroke-current"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
+          />
+        </svg>
+        <div class="flex items-center justify-center w-8 h-8 ml-auto">
+          <a href="/logout">
+            <buton
+              class="flex items-center justify-center w-8 h-8 ml-auto cursor-pointer font-bold"
+            >
+              Logout
+            </buton>
+          </a>
+        </div>
+      </div>
+      <div class="px-10 mt-6">
+        <h1 class="text-2xl font-bold">Kanban App</h1>
+      </div>
+
+      <div class="relative flex justify-end px-10 mt-6">
+        <a
+          type="submit"
+          class="bg-yellow-400 text-black font-bold rounded-md px-2 py-1 hover:bg-yellow-500 text-xl"
+          href="/category/add"
+        >
+          Add category
+        </a>
+    </div>
+    <div>
+      <ul>
+        {{ range $i, $val := .categories }}
+        <li class="relative mt-4 w-4/5 py-8 sm:max-w-xl sm:mx-auto sm:w-1/">
+        <div
+          class="absolute inset-0 bg-gradient-to-r from-amber-100 to-yellow-500 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"
+        ></div>
+          <div
+            class="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20"
+          >
+            <div class="max-w-md mx-auto">
+              <div>
+                <h3 class="text-4xl font-bold text-center">{{$val.Type}} </h3>
+                <a class="flex justify-end" href="/category/delete?category_id={{$val.ID}}">
+                  <svg class="h-8 w-8 text-red-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <line x1="4" y1="7" x2="20" y2="7" />  <line x1="10" y1="11" x2="10" y2="17" />  <line x1="14" y1="11" x2="14" y2="17" />  <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />  <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg>
+                </a>
+                <br>
+              </div>
+              <div class="divide-y divide-gray-200">
+                <div>
+                  <div class="relative">
+                    <!-- <p>Ini isi task nya</p> -->
+                    <ul>
+                      {{range $j, $res := $val.Tasks}}
+                        <li>
+                          <div class="flex">
+                            <div class="block p-6 rounded-lg shadow-lg bg-white w-full bg-cover">
+                              <h5 class="text-gray-900 text-xl leading-tight font-medium mb-2">{{$res.Title}}</h5>
+                              <p class="text-gray-700 text-base mb-4">
+                                {{$res.Description}}
+                              </p>
+                              <div class="flex justify-end">
+                                <a class="flex justify-end" href="/task/update?task_id={{$res.ID}}">
+                                  <svg class="h-8 w-8 text-red-500"  viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M9 7 h-3a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-3" />  <path d="M9 15h3l8.5 -8.5a1.5 1.5 0 0 0 -3 -3l-8.5 8.5v3" />  <line x1="16" y1="5" x2="19" y2="8" /></svg>
+                                </a>
+                                <a class="flex justify-end" href="/task/delete?task_id={{$res.ID}}">
+                                  <svg class="h-8 w-8 text-red-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <line x1="4" y1="7" x2="20" y2="7" />  <line x1="10" y1="11" x2="10" y2="17" />  <line x1="14" y1="11" x2="14" y2="17" />  <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />  <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg>
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                          <br>
+                        </li>
+                      {{end}}
+                    </ul>
+                    <!-- <p>{{$val.Tasks}}</p> -->
+                  </div>
+                  <a class="bg-yellow-400 text-black font-bold rounded-md px-2 py-1 hover:bg-yellow-500" href="/task/add?category={{$val.ID}}">Add Task</a>
+                
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        {{end}}
+      </ul>
+    </div>
+  </body>
+</html>
